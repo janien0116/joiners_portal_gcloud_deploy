@@ -31,10 +31,10 @@
                     <li>
                         <a href="{{ route('tour_places') }}" data-target="destinations">Destinations</a>
                     </li>
-                    <li>
-                        <a href="{{ route('tour_history') }}" data-target="history">Tour History</a>
-                    </li>
                     @if (Auth::user())
+                        <li>
+                            <a href="{{ route('tour_history') }}" data-target="history">Tour History</a>
+                        </li>
                         <li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                 @csrf
