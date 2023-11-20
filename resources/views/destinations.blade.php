@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media-queries.css') }}">
     <script src="https://kit.fontawesome.com/5f8be564ce.js" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body id="destinations">
@@ -800,8 +800,20 @@
         </main>
     </div>
     @include('footer')
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initialize&v=weekly"
-        defer></script>
+    <script defer>
+        axios.get('/api-key')
+            .then(response => {
+                const apiKey = response.data.key;
+    
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initialize&v=weekly`;
+                script.defer = true;
+                document.head.appendChild(script);
+            })
+            .catch(error => {
+                console.error('Failed to retrieve the API key', error);
+            });
+    </script>
     <script>
         var booktourUrl = "{{ route('book_tour') }}";
     </script>

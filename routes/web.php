@@ -41,6 +41,10 @@ Route::get('/booktour', function () {
     return view('book-tour');
 })->middleware(['auth'])->name('book_tour');
 
+Route::get('/api-key', function () {
+    return response()->json(['key' => config('services.google_maps.api_key')]);
+});
+
 Route::get('/tours', [BookedTourController::class, 'index'])->middleware(['auth'])->name('tour_history');
 
 Route::post('/joiner/signup', [JoinerController::class, 'store'])->name('sign_up');
